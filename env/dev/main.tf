@@ -19,3 +19,12 @@ module "ec2" {
   volume_size   = var.volume_size
   volume_type   = var.volume_type
 }
+
+module "operation-sg-1" {
+  source = "../../securitygroup"
+
+  vpc_id      = module.network.vpc_id
+  from_port   = 22
+  to_port     = 22
+  cidr_blocks = var.operation_sg_1_cidr
+}

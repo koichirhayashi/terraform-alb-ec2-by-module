@@ -1,8 +1,8 @@
 resource "aws_vpc" "vpc" {
-    cidr_block = var.cidr
-    tags = {
-        Name = "${var.env}-vpc"
-    }
+  cidr_block = var.cidr
+  tags = {
+    Name = "${var.env}-vpc"
+  }
 }
 
 resource "aws_subnet" "public_subnets" {

@@ -56,3 +56,8 @@ variable "volume_size" {
   description = "Root block device size of EC2"
   default     = 100
 }
+
+variable "operation_sg_1_cidr" {
+  type    = string
+  default = "0.0.0.0/0"
+}
