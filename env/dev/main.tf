@@ -8,7 +8,7 @@ module "network" {
 
 }
 module "ec2" {
-  source = "./ec2"
+  source = "../../ec2"
 
   ami               = var.ami
   ec2_count         = var.ec2_count
