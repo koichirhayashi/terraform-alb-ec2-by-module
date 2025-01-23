@@ -3,9 +3,9 @@ resource "aws_instance" "web" {
     count = var.ec2_count
     key_name = aws_key_pair.key.id
     subnet_id = element(var.public_subnet_ids, count.index % 2)
-    # vpc_security_group_ids = [
-    #     var.internal_sg_id
-    # ]
+    vpc_security_group_ids = [
+        var.internal_sg_id
+    ]
     instance_type = var.instance_type
     root_block_device {
         volume_type = var.volume_type
