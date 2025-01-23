@@ -11,6 +11,9 @@ resource "aws_instance" "web" {
         volume_type = var.volume_type
         volume_size = var.volume_size
     }
+    tags = {
+        Name = "${var.env}-test.ec2"
+    }
 }
 
 resource "aws_key_pair" "key" {

@@ -15,6 +15,9 @@ resource "aws_subnet" "public_subnets" {
 
 resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.vpc.id
+  tags = {
+    Name = "${var.env}-ig"
+  }
 
 }
 
@@ -25,6 +28,9 @@ resource "aws_route_table" "public_route_tables" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.gw.id
   }
+  tags = {
+    Name = "${var.env}-public-route-table"
+  }  
 }
 
 

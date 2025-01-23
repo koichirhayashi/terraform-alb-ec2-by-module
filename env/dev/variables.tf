@@ -37,6 +37,8 @@ variable "ec2_count" {
 
 variable "key_name" {
   type = string
+  default = "terraform-test.pem"
+
 }
 
 variable "instance_type" {

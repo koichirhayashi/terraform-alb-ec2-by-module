@@ -7,11 +7,12 @@ module "network" {
   vpc_id         = module.network.vpc_id
   public_subnets = var.public_subnets
 
-
 }
+
 module "ec2" {
   source = "../../ec2"
-
+  
+  env = var.env
   ami               = var.ami
   ec2_count         = var.ec2_count
   public_subnet_ids = module.network.public_subnet_ids
@@ -25,8 +26,10 @@ module "ec2" {
 module "operation-sg-1" {
   source = "../../securitygroup"
 
+  env = var.env
   vpc_id      = module.network.vpc_id
   from_port   = 22
   to_port     = 22
   cidr_blocks = var.operation_sg_1_cidr
+  sg_role = "operation"
 }

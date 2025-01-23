@@ -1,6 +1,8 @@
 resource "aws_security_group" "default" {
     vpc_id = var.vpc_id
-
+    tags = {
+        Name = "${var.env}-sg-${var.sg_role}"
+    }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "ingress" {
