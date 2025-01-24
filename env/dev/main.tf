@@ -1,3 +1,4 @@
+# NETWORK
 module "network" {
   source = "../../network"
 
@@ -9,6 +10,7 @@ module "network" {
 
 }
 
+# EC2
 module "ec2" {
   source = "../../ec2"
   
@@ -32,4 +34,37 @@ module "operation-sg-1" {
   to_port     = 22
   cidr_blocks = var.operation_sg_1_cidr
   sg_role = "operation"
+}
+
+# ALB 
+module "alb" {
+  source = "../../alb"
+
+  env = var.env
+  alb_http_sg_id = module.alb_http_sg.security_group_id
+  alb_https_sg_id = module.alb_https_sg.security_group_id
+  public_subnet_ids = module.network.public_subnet_ids
+
+}
+
+module "alb_http_sg" {
+  source = "../../securitygroup"
+
+  env = var.env
+  vpc_id      = module.network.vpc_id
+  from_port   = 80
+  to_port     = 80
+  cidr_blocks = var.operation_sg_1_cidr
+  sg_role = "http"
+}
+
+module "alb_https_sg" {
+  source = "../../securitygroup"
+
+  env = var.env
+  vpc_id      = module.network.vpc_id
+  from_port   = 443
+  to_port     = 443
+  cidr_blocks = var.operation_sg_1_cidr
+  sg_role = "https"
 }
