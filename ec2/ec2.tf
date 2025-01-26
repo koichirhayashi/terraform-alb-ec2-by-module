@@ -4,9 +4,16 @@ resource "aws_instance" "web" {
     key_name = aws_key_pair.key.id
     subnet_id = element(var.public_subnet_ids, count.index % 2)
     vpc_security_group_ids = [
-        var.internal_sg_id
+        var.internal_sg_id,
+        var.internal_sg2_id
     ]
     instance_type = var.instance_type
+    user_data = <<EOF
+    #!/bin/bash
+    yum install -y httpd
+    echo "<html><body>Hello World!</body></html>" > /var/www/html/index.html
+    systemctl enable --now httpd
+    EOF
     root_block_device {
         volume_type = var.volume_type
         volume_size = var.volume_size
